@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Interaktif Gua Mampu</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        :root {
+            --bg: #050816;
+            --accent: #22d3ee;
+            --border: #1f2a44;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: #e6edf3;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        /* ================= HEADER HERO ================= */
+
+        header {
+            position: relative;
+            height: 360px;
+            overflow: hidden;
+            margin-bottom: 80px;
+        }
+
+        header > img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(5,8,22,0.65),
+                rgba(5,8,22,0.85)
+            );
+            z-index: 1;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(34,211,238,0.15);
+            border: 1px solid rgba(34,211,238,0.35);
+            margin-bottom: 14px;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-pill-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .title span {
+            color: var(--accent);
+        }
+
+        .lead {
+            font-size: 15px;
+            color: #cbd5e1;
+            line-height: 1.7;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .cta-button {
+            background: var(--accent);
+            color: #062024;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* Responsive header heights */
+        @media (min-width: 1024px) {
+            header { height: 420px; }
+            .title { font-size: 48px; }
+            .hero { padding: 4.5rem 20px; }
+        }
+
+        @media (max-width: 640px) {
+            header { height: 260px; }
+            .title { font-size: 22px; }
+            .lead { font-size: 14px; max-width: 92%; }
+            .hero { padding: 1rem 12px; }
+        }
+
+        /* ================= MAP ================= */
+
+        #map-container {
+            width: 100%;
+            height: 600px;
+            background: #020617;
+            border-radius: 20px;
+            border: 2px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        .custom-hotspot {
+            width: 38px;
+            height: 38px;
+            background: rgba(34,211,238,0.15);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(34,211,238,0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: transform 0.2s ease, background 0.2s ease;
+            overflow: hidden; /* ensure img doesn't show rectangular background */
+        }
+
+        .custom-hotspot:hover {
+            transform: scale(1.2);
+            background: var(--accent);
+        }
+
+        .hotspot-img{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            display:block;
+            border-radius:50%;
+        }
+
+        /* Remove default white box from Leaflet div icons */
+        .leaflet-div-icon,
+        .leaflet-marker-icon {
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background: #111831;
+            color: #e6edf3;
+            border-radius: 12px;
+            border: 1px solid var(--accent);
+        }
+
+        .leaflet-popup-tip {
+            background: var(--accent);
+        }
+
+        /* Tooltip for hotspots */
+        .hotspot-tooltip {
+            background: rgba(2,6,23,0.95);
+            color: #e6f7fb;
+            border: 1px solid rgba(34,211,238,0.25);
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+        }
+
+        .map-guide {
+    margin-bottom: 14px;
+    padding: 14px 18px;
+}
+
+.map-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #67e8f9; /* cyan-300 */
+    margin-bottom: 4px;
+}
+
+.map-desc {
+    font-size: 0.85rem;
+    color: #cbd5f5;
+    line-height: 1.4;
+}
+
+    </style>
+</head>
+
+<body class="p-6 md:p-10">
+
+<div class="max-w-6xl mx-auto">
+
+<header>
+    <img src="assets/photos/gua_dashboard3.jpg" alt="Latar Belakang Gua Mampu">
+
+    <div class="hero">
+        <div class="hero-pill">
+            <div class="hero-pill-dot"></div>
+            <span>Selayar Pandang • Jelajah Alam Karst</span>
+        </div>
+
+        <h1 class="title">
+            Gua Mampu — <span>Peta Interaktif Wisata Alam</span>
+        </h1>
+
+        <p class="lead" alignment="justify">
+            Selamat datang di Gua Mampu, salah satu situs wisata alam dan geologi di Kabupaten Bone,
+            Sulawesi Selatan. Kawasan karst ini menyimpan formasi stalaktit dan stalagmit unik,
+            ruang gua yang luas, serta nilai sejarah dan cerita rakyat setempat.
+        </p>
+
+        <div class="mt-6 flex justify-center gap-4 flex-wrap">
+            <a href="about.html" class="cta-button">About</a>
+            <a href="3dmodel.html" class="cta-button">Lihat 3D Model</a>
+        </div>
+    </div>
+</header>
+
+<!-- MAP -->
+ <div class="map-guide glass-panel">
+    <h2 class="map-title">Peta Interaktif Gua Mampu</h2>
+    <p class="map-desc">
+        Arahkan kursor, geser peta, dan klik tombol untuk melihat
+        tur masing-masing bagian Gua Mampu.
+    </p>
+</div>
+<div id="map-container"></div>
+
+
+<footer class="mt-6 flex justify-center">
+    <div class="flex items-center gap-2 text-xs text-slate-400">
+        <span class="w-3 h-3 rounded-full bg-cyan-400 shadow-[0_0_8px_cyan]"></span>
+        Titik Interaktif (klik untuk melihat informasi)
+    </div>
+</footer>
+
+</div>
+
+<script>
+    const imageUrl = 'assets/photos/Maps.jpg';
+    const imageWidth = 2000;
+    const imageHeight = 1200;
+    const imageBounds = [[0,0],[imageHeight,imageWidth]];
+
+    const map = L.map('map-container', {
+        crs: L.CRS.Simple,
+        minZoom: -1.5,
+        maxZoom: 1.5,
+        zoomSnap: 0.25,
+        maxBoundsViscosity: 1.0
+    });
+
+    L.imageOverlay(imageUrl, imageBounds).addTo(map);
+    map.setMaxBounds(imageBounds);
+    map.setView([imageHeight/2, imageWidth/2], -0.5);
+
+    function addHotspot({ y, x, title, desc, icon, link }) {
+    let iconHtml = '';
+    if (icon) {
+        const lc = String(icon).toLowerCase();
+        if (lc.endsWith('.png') || lc.endsWith('.jpg') || lc.endsWith('.jpeg') || lc.endsWith('.svg')) {
+            iconHtml = `<img src="${icon}" class="hotspot-img" alt="${title || 'hotspot'}">`;
+        } else {
+            iconHtml = `<span class="hotspot-icon">${icon}</span>`;
+        }
+    }
+
+    const hotspotIcon = L.divIcon({
+        html: `
+            <div class="custom-hotspot">
+                ${iconHtml}
+            </div>
+        `,
+        iconSize: [38, 38],
+        iconAnchor: [19, 19]
+    });
+
+    const popupContent = `
+        <div>
+            <strong style="color:#22d3ee">${title}</strong><br>
+            <p style="font-size:13px; margin:6px 0">${desc}</p>
+            ${
+                link
+                ? `<a href="${link}" target="_blank"
+                    style="color:#67e8f9; font-size:12px; text-decoration:underline">
+                    ➜ Lihat Detail
+                  </a>`
+                : ""
+            }
+        </div>
+    `;
+
+    const marker = L.marker([y, x], { icon: hotspotIcon })
+        .addTo(map)
+        .bindPopup(popupContent);
+
+    // bind a tooltip that shows on hover with the hotspot title
+    if (title) {
+        marker.bindTooltip(title, {
+            direction: 'top',
+            offset: [0, -8],
+            className: 'hotspot-tooltip',
+            permanent: false,
+            opacity: 0.95
+        });
+    }
+}
+
+
+    addHotspot({
+    y: 450,
+    x: 1100,
+    title: "Kawin Lari",
+    desc: "Kunjungi halaman khusus Kawin Lari untuk informasi lebih lanjut",
+    icon: "assets/icons/ikon_tugu.png",
+    link: "../kawinlari/menu.html"
+});
+
+addHotspot({
+    y: 685,
+    x: 1125,
+    title: "Orang Menenun",
+    desc: "Kunjungi halaman khusus Patung Orang Menenun untuk informasi lebih lanjut",
+    icon: "assets/icons/ikon_tugu.png",
+    link: "../orangmenenun/menu.html"
+});
+
+addHotspot({
+    y: 1010,
+    x: 1010,
+    title: "Pintu Masuk",
+    desc: "Bagian terluar gua yang menjadi akses ekspolasi menuju ke dalam gua.",
+    icon: "assets/icons/ikon_gerbang.png",
+    link: "index.html"
+});
+
+addHotspot({
+    y: 960,
+    x: 925,
+    title: "Makam Raja Mampu",
+    desc: "Kunjungi halaman khusus Makam Raja Mampu untuk informasi lebih lanjut",
+    icon: "assets/icons/makam_raja_mampu.png",
+    link: "../makamrajamampu/menu.html"
+});
+
+addHotspot({
+    y: 930,
+    x: 1050,
+    title: "Makam Permaisuri",
+    desc: "Kunjungi halaman khusus Makam Permaisuri untuk informasi lebih lanjut",
+    icon: "assets/icons/makam_raja_mampu.png",
+    link: "../makampermaisuri/menu.html"
+});
+
+addHotspot({
+    y: 910,
+    x: 980,
+    title: "Makam Penjaga",
+    desc: "Kunjungi halaman khusus Makam Penjaga untuk informasi lebih lanjut",
+    icon: "assets/icons/makam_raja_mampu.png",
+    link: "../makampenjaga/menu.html"
+});
+
+addHotspot({
+    y: 800,
+    x: 870,
+    title: "Makam Petta Tanre Wara",
+    desc: "Kunjungi halaman khusus Makam Petta Tanre Wara untuk informasi lebih lanjut",
+    icon: "assets/icons/makam_raja_mampu.png",
+    link: "../makampettatanrewara/menu.html"
+});
+
+addHotspot({
+    y: 820,
+    x: 970,
+    title: "Kapal",
+    desc: "Kunjungi halaman khusus Kapal untuk informasi lebih lanjut",
+    icon: "assets/icons/ikon_kapal.png",
+    link: "../kapal/menu.html"
+});
+
+addHotspot({
+    y: 800,
+    x: 1075,
+    title: "Buaya",
+    desc: "Kunjungi halaman khusus Buaya untuk informasi lebih lanjut",
+    icon: "assets/icons/ikon_buaya.png",
+    link: "../buaya/menu.html"
+});
+
+addHotspot({
+    y: 700,
+    x: 950,
+    title: "Orang Melahirkan",
+    desc: "Kunjungi halaman khusus Orang Melahirkan untuk informasi lebih lanjut",
+    icon: "assets/icons/ikon_tugu.png",
+    link: "../orangmelahirkan/menu.html"
+});
+
+addHotspot({
+    y: 600,
+    x: 1050,
+    title: "Rusa Terperangkap",
+    desc: "Kunjungi halaman khusus Rusa Terperangkap untuk informasi lebih lanjut",
+    icon: "assets/icons/ikon_tugu.png",
+    link: "../rusaterperangkap/menu.html"
+});
+
+addHotspot({
+    y: 500,
+    x: 1000,
+    title: "Manusia Jadi Batu",
+    desc: "Kunjungi halaman khusus Manusia Jadi Batu untuk informasi lebih lanjut",
+    icon: "assets/icons/ikon_manusiajadibatu.png",
+    link: "../manusiajadibatu/menu.html"
+});
+
+addHotspot({
+    y: 550,
+    x: 1180,
+    title: "Pematang Sawah",
+    desc: "Kunjungi halaman khusus Pematang Sawah untuk informasi lebih lanjut",
+    icon: "assets/icons/ikon_pematangsawah.png",
+    link: "../pematangsawah/menu.html"
+});
+</script>
+
+</body>
+</html>

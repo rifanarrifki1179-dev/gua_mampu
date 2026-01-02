@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About — Selayar Pandang</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg: #050816;
+            --bg-soft: #070c1f;
+            --ink: #e6edf3;
+            --muted: #9ca3af;
+            --accent: #22d3ee;
+            --accent-soft: rgba(34, 211, 238, 0.15);
+            --panel: #0b1020;
+            --border: #1f2937;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(56, 189, 248, 0.14), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(129, 140, 248, 0.16), transparent 55%),
+                var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+        }
+
+        .glass-panel {
+            background: radial-gradient(circle at top, rgba(34, 211, 238, 0.06), transparent 55%),
+                        linear-gradient(145deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.98));
+            border-radius: 18px;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            box-shadow:
+                0 18px 45px rgba(15, 23, 42, 0.9),
+                0 0 0 1px rgba(15, 23, 42, 0.8);
+        }
+
+        .pill {
+            background: radial-gradient(circle at top left, rgba(34, 211, 238, 0.18), transparent 70%),
+                        rgba(15, 23, 42, 0.9);
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+        }
+
+        .divider-gradient {
+            height: 1px;
+            width: 100%;
+            background: linear-gradient(to right,
+                transparent,
+                rgba(148, 163, 184, 0.6),
+                transparent
+            );
+        }
+
+        .section-tag {
+            letter-spacing: 0.16em;
+        }
+
+        article p,
+        .glass-panel p,
+        main p {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+    </style>
+</head>
+<body>
+    <main class="max-w-4xl mx-auto px-5 sm:px-6 lg:px-0 py-10 sm:py-14">
+        <a href="index.html"
+           class="inline-flex items-center text-sm font-semibold text-cyan-300 hover:text-cyan-200 transition-colors mb-6 group">
+            <span class="mr-1.5 text-base">←</span>
+            <span class="border-b border-transparent group-hover:border-cyan-200 pb-0.5">Kembali ke Beranda</span>
+        </a>
+
+        <section class="glass-panel p-6 sm:p-8 lg:p-10">
+            <header class="mb-6 sm:mb-8">
+                <div class="pill inline-flex items-center gap-2 px-3 py-1 mb-4">
+                    <span class="inline-flex h-1.5 w-1.5 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(34,211,238,0.8)]"></span>
+                    <span class="section-tag text-[10px] sm:text-xs font-semibold uppercase text-cyan-100">
+                        Jelajah Alam & Budaya • Selayar Pandang
+                    </span>
+                </div>
+
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-slate-50">
+                    Gua Mampu:
+                    <span class="text-cyan-300">Jejak Legenda dan Alam yang Membatu</span>
+                </h1>
+
+                <p class="mt-3 text-sm sm:text-base text-slate-300 max-w-2xl">
+                    Sebuah ruang perjumpaan antara keindahan alam, cerita rakyat, dan ingatan kolektif masyarakat Bugis
+                    yang diwariskan lintas generasi.
+                </p>
+            </header>
+
+            <div class="divider-gradient mb-6 sm:mb-8"></div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-8 lg:gap-10">
+                <article class="space-y-5 text-sm sm:text-[15px] leading-relaxed text-slate-200">
+                    <p>
+                        <span class="font-semibold text-cyan-200">Gua Mampu</span> merupakan salah satu situs alam dan budaya
+                        yang terletak di Desa Cabbeng, Kecamatan Dua Boccoe, Kabupaten Bone, Sulawesi Selatan. Gua ini dikenal
+                        luas bukan hanya karena keindahan formasi batu kapurnya, tetapi juga karena kuatnya cerita legenda
+                        yang melekat dan hidup dalam ingatan masyarakat setempat.
+                    </p>
+
+                    <p>
+                        Secara geologis, Gua Mampu terbentuk melalui proses alam yang berlangsung sangat lama, menghasilkan
+                        stalaktit dan stalagmit dengan bentuk-bentuk unik. Di dalam gua, pengunjung dapat menemukan susunan
+                        batu yang menyerupai manusia, hewan, dan berbagai objek lain, yang oleh masyarakat setempat sering
+                        dikaitkan dengan tokoh-tokoh dalam cerita rakyat.
+                    </p>
+
+                    <p>
+                        Dalam tradisi lisan masyarakat Bugis, Gua Mampu diyakini sebagai sisa dari sebuah kerajaan kuno bernama
+                        <span class="font-medium text-sky-200">Kerajaan Mampu</span>. Legenda yang paling dikenal menceritakan
+                        tentang kutukan yang menimpa kerajaan tersebut akibat pengingkaran janji, hingga seluruh wilayah dan
+                        penghuninya dipercaya berubah menjadi batu.
+                    </p>
+
+                    <p>
+                        Kisah ini tidak sekadar menjadi cerita mistis, tetapi juga berfungsi sebagai sarana pendidikan moral
+                        tentang kejujuran, tanggung jawab, dan konsekuensi dari setiap perbuatan manusia. Kepercayaan dan mitos
+                        yang berkembang di sekitar Gua Mampu mencerminkan hubungan spiritual masyarakat dengan alam dan
+                        leluhurnya.
+                    </p>
+
+                    <p>
+                        Seiring waktu, Gua Mampu berkembang menjadi destinasi wisata alam dan budaya yang penting di Kabupaten
+                        Bone. Meskipun legenda yang menyertainya tidak dapat dibuktikan secara historis, nilai budaya dan
+                        simbolik yang dikandungnya tetap relevan dan berharga.
+                    </p>
+
+                    <p>
+                        Hari ini, Gua Mampu berdiri sebagai
+                        <span class="font-semibold text-cyan-200">ruang refleksi antara alam dan budaya</span>, tempat
+                        pengunjung dapat menikmati keindahan geologi sekaligus merenungkan pesan moral yang diwariskan
+                        melalui cerita rakyat. Melestarikan Gua Mampu berarti menjaga warisan alam dan budaya Sulawesi Selatan.
+                    </p>
+
+                    <p class="border border-slate-700/80 bg-slate-900/60 rounded-xl px-4 py-3 text-[13px] sm:text-sm text-slate-200">
+                        <span class="block text-xs font-semibold uppercase tracking-[0.14em] text-cyan-200 mb-1">
+                            Ajakan
+                        </span>
+                        Mari bersama menjaga kelestarian Gua Mampu sebagai warisan alam dan budaya, agar kisah, nilai, dan
+                        keindahannya tetap hidup dan dapat diwariskan kepada generasi mendatang.
+                    </p>
+                </article>
+
+                <aside class="space-y-5 text-xs sm:text-sm">
+                    <div class="rounded-2xl border border-slate-700/80 bg-slate-900/70 p-4 sm:p-5 flex flex-col gap-3">
+                        <div class="flex items-center gap-2">
+                            <div class="h-7 w-7 rounded-full bg-cyan-400/10 flex items-center justify-center">
+                                <span class="text-cyan-300 text-lg">🪨</span>
+                            </div>
+                            <h2 class="text-sm sm:text-base font-semibold text-slate-50">
+                                Sekilas Informasi
+                            </h2>
+                        </div>
+
+                        <ul class="space-y-2.5 text-slate-300">
+                            <li class="flex gap-2">
+                                <span class="mt-0.5 h-[3px] w-[3px] rounded-full bg-cyan-300"></span>
+                                <span>
+                                    <span class="font-semibold text-sky-100">Lokasi</span> — Desa Cabbeng, Kecamatan Dua Boccoe,
+                                    Kabupaten Bone.
+                                </span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="mt-0.5 h-[3px] w-[3px] rounded-full bg-cyan-300"></span>
+                                <span>
+                                    <span class="font-semibold text-sky-100">Jenis</span> — Gua kapur alami dengan stalaktit
+                                    dan stalagmit.
+                                </span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="mt-0.5 h-[3px] w-[3px] rounded-full bg-cyan-300"></span>
+                                <span>
+                                    <span class="font-semibold text-sky-100">Nilai Budaya</span> — Legenda Kerajaan Mampu dan
+                                    tradisi lisan masyarakat Bugis.
+                                </span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="mt-0.5 h-[3px] w-[3px] rounded-full bg-cyan-300"></span>
+                                <span>
+                                    <span class="font-semibold text-sky-100">Fungsi</span> — Wisata alam, edukasi, dan refleksi
+                                    budaya.
+                                </span>
+                            </li>
+                        </ul>
+
+                        <div class="mt-4 rounded-xl overflow-hidden border border-slate-700/60 bg-slate-800/40 shadow-lg">
+                            <img src="assets/photos/gua_dashboard.jpg"
+                                 alt="Gua Mampu"
+                                 class="w-full h-auto object-cover">
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

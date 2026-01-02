@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drone — Benteng Somba Opu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg: #050816;
+            --ink: #e6edf3;
+            --muted: #a9b4c2;
+            --accent: #22d3ee;
+            --panel: #111831;
+            --border: #1f2a44;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+            background:
+                radial-gradient(circle at top left, rgba(56,189,248,0.14), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(129,140,248,0.18), transparent 55%),
+                var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 40px auto 48px auto;
+            padding: 0 16px;
+            animation: fade-in 0.6s ease-out;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            color: #7dd3fc;
+            margin-bottom: 14px;
+        }
+
+        .back-link span.text {
+            border-bottom: 1px solid transparent;
+        }
+
+        .back-link:hover span.text {
+            border-color: #7dd3fc;
+        }
+
+        /* Glass panel */
+        .glass-panel {
+            background:
+                radial-gradient(circle at top, rgba(34,211,238,0.08), transparent 60%),
+                linear-gradient(145deg, rgba(15,23,42,0.97), rgba(15,23,42,0.99));
+            border-radius: 18px;
+            border: 1px solid rgba(148,163,184,0.28);
+            padding: 26px 26px 28px;
+            box-shadow:
+                0 18px 50px rgba(15,23,42,0.85),
+                0 0 0 1px rgba(15,23,42,0.88);
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: radial-gradient(circle at top left, rgba(34,211,238,0.18), rgba(15,23,42,0.96));
+            border: 1px solid rgba(148,163,184,0.45);
+            margin-bottom: 12px;
+        }
+
+        .pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--accent);
+            box-shadow: 0 0 10px rgba(34,211,238,0.9);
+        }
+
+        .pill-text {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #e0f2fe;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: clamp(22px, 3.4vw, 32px);
+            font-weight: 700;
+        }
+
+        .lead {
+            font-size: 14px;
+            color: var(--muted);
+            max-width: 650px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        /* Video wrapper */
+        .video-wrap {
+            margin-top: 26px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(30,64,175,0.65);
+            box-shadow:
+                0 0 18px rgba(30,64,175,0.7),
+                0 0 40px rgba(15,23,42,0.9);
+            background: #000;
+        }
+
+        video {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .video-caption {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #cbd5f5;
+        }
+
+        .video-caption span {
+            color: #7dd3fc;
+            font-weight: 500;
+        }
+
+        /* Extra info cards */
+        .extra-grid {
+            margin-top: 18px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+            gap: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .extra-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .extra-card {
+            border-radius: 14px;
+            border: 1px solid rgba(148,163,184,0.35);
+            background: rgba(15,23,42,0.94);
+            padding: 10px 12px 11px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .extra-card h2 {
+            margin: 0 0 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #e5e7eb;
+        }
+
+        .extra-card small {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: #9ca3af;
+        }
+
+        .extra-card .cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #7dd3fc;
+            text-decoration: none;
+        }
+
+        .extra-card .cta-link span.icon {
+            font-size: 14px;
+        }
+
+        .extra-card .cta-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<main>
+    <!-- Back link -->
+    <a class="back-link" href="index.html">
+        <span>←</span>
+        <span class="text">Kembali ke Beranda</span>
+    </a>
+
+    <!-- Glass panel -->
+    <section class="glass-panel">
+        <header>
+            <div class="pill">
+                <div class="pill-dot"></div>
+                <span class="pill-text">Selayar Pandang • Drone View</span>
+            </div>
+
+            <h1>Video Drone Benteng Somba Opu</h1>
+            <p class="lead">
+                Rekaman ini mendokumentasikan perjalanan udara yang dimulai dari ruas jalan menuju kawasan Benteng Somba Opu,
+                kemudian perlahan memasuki area kompleks hingga akhirnya menampilkan sudut pandang dari atas benteng.
+                Melalui alur ini, penonton dapat merasakan transisi dari akses masuk menuju pusat kawasan bersejarah Somba Opu.
+            </p>
+        </header>
+
+        <!-- Video -->
+        <div class="video-wrap">
+            <video controls poster="assets/photos/drone_poster.jpg">
+                <source src="assets/videodrone/Video_drone_benteng.mp4" type="video/mp4">
+                Browser Anda tidak mendukung video. Silakan gunakan browser yang lebih baru.
+            </video>
+        </div>
+
+        <!-- Caption singkat -->
+        <p class="video-caption">
+            <span>Catatan visual:</span> tayangan dimulai dari perspektif rendah di sepanjang jalan menuju Benteng Somba Opu,
+            lalu berlanjut menyusuri kawasan hingga kamera terangkat tinggi dan berhenti pada sudut pandang di atas
+            benteng untuk menampilkan keseluruhan areanya.
+        </p>
+
+        <!-- Kartu informasi ringkas -->
+        <div class="extra-grid">
+            <div class="extra-card">
+                <small>SUDUT PANDANG</small>
+                <h2>Dari Akses Jalan ke Pusat Benteng</h2>
+                <p>
+                    Pergerakan drone dari jalan menuju kawasan Somba Opu membantu menggambarkan bagaimana pengunjung
+                    memasuki area ini secara nyata: mulai dari jalur akses luar, memasuki kompleks, hingga tiba di
+                    area utama benteng yang menjadi titik fokus rekaman.
+                </p>
+            </div>
+
+            <div class="extra-card">
+                <small>KETERHUBUNGAN</small>
+                <h2>Menghubungkan Rute Nyata dan Peta</h2>
+                <p>
+                    Urutan visual dalam video dapat digunakan sebagai orientasi awal sebelum menjelajahi peta interaktif,
+                    sehingga penonton dapat membayangkan rute masuk dari jalan menuju benteng dan mengaitkannya dengan
+                    posisi rumah adat yang ditampilkan pada peta.
+                </p>
+                <a href="index.html" class="cta-link">
+                    <span class="icon">⤺</span>
+                    <span>Kembali ke Peta Interaktif</span>
+                </a>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+</body>
+</html>
