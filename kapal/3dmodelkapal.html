@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <!-- model-viewer -->
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <!-- Preload model to help loading and allow cross-origin fetch -->
+  <link rel="preload" href="../assets/3dmodel/kapal.glb" as="fetch" crossorigin>
 
   <style>
     :root{
@@ -112,7 +114,8 @@
       <div class="viewer-wrap">
         <!-- GANTI src GLB sesuai lokasi file kamu -->
         <model-viewer id="viewer"
-          src="assets/3dmodel/kapal.glb"
+          src="../assets/3dmodel/kapal.glb"
+          crossorigin="anonymous"
           camera-controls
           touch-action="pan-y"
           shadow-intensity="0.6"

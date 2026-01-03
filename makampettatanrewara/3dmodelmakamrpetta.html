@@ -9,6 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <!-- model-viewer -->
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <!-- Preload model to help loading and allow cross-origin fetch -->
+  <link rel="preload" href="../assets/3dmodel/makampetta.glb" as="fetch" crossorigin>
 
   <style>
     :root{
@@ -112,13 +114,13 @@
       <div class="viewer-wrap">
         <!-- GANTI src GLB sesuai lokasi file kamu -->
         <model-viewer id="viewer"
-          src="assets/3dmodel/makamrpetta.glb"
+          src="../assets/3dmodel/makampetta.glb"
+          crossorigin="anonymous"
           camera-controls
           touch-action="pan-y"
           shadow-intensity="0.6"
           exposure="1.0"
           environment-image="neutral"
-          poster="assets/photos/gua_dashboard3.jpg"
           ar ar-modes="webxr scene-viewer quick-look"
           alt="Model 3D Makam Petta Tanrewara">
         </model-viewer>
